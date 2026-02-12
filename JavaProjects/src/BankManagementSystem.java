@@ -128,26 +128,31 @@ public class BankManagementSystem {
         }
 
        do{
-           System.out.println(" 1. Check Balance \n 2. Withdraw Money \n 3. Deposit Money \n 4. Exit");
-           System.out.println("What activity would you like to do?: ");
+           System.out.println("\n 1. Check Balance \n 2. Withdraw Money \n 3. Deposit Money \n 4. Transfer Money \n 5. Exit");
+           System.out.print("What activity would you like to do?: ");
            userChoice = scanner.nextInt();
            switch (userChoice) {
                case 1 -> checkBalance(balance);
                case 2 -> {
                    balance -= withdraw(balance);
+                   System.out.println("Your balance is " + balance);
                }
                case 3 -> {
                    balance += deposit();
                    System.out.println("Your new balance is " + balance);
                }
                case 4 -> {
+                   balance -= TransferMoney(balance);
+                   System.out.println("Your new balance is " +  balance);
+               }
+               case 5 -> {
                    System.out.println("Thanks for using our service!");
                    System.exit(0);
                }
                default -> System.out.println("Invalid input!");
            }
 
-       }while(userChoice != 4);
+       }while(userChoice != 5);
         scanner.close();
     }
 
@@ -175,11 +180,31 @@ public class BankManagementSystem {
         double amount;
         System.out.print("Enter the amount you want to withdraw: ");
         amount = scanner.nextDouble();
+
         if(amount > balance){
             System.out.println("Insufficient balance!");
             return 0;
         }
         else{
+            return amount;
+        }
+    }
+
+    static double TransferMoney(double balance){
+        double amount;
+        System.out.print("Enter the amount you want to transfer: ");
+        amount = scanner.nextDouble();
+
+        if(amount < 0){
+            System.out.println("Amount can't be in negative!");
+            return 0;
+        }
+        else if(amount > balance){
+            System.out.println("Insufficient Balance!");
+            return 0;
+        }
+        else{
+            System.out.println("You have successfully transferred " + amount+ " from your account.");
             return amount;
         }
     }

@@ -46,8 +46,11 @@ public class BankManagementSystem {
             if (isExist.equals("yes")) {
                 isAccount = true;
 
-            } else if (isExist.equals("no")) {
-            } else {
+            }
+            else if (isExist.equals("no")) {
+
+            }
+            else {
                 System.out.println("Invalid input!");
                 System.out.println("Please re-run the program.");
                 System.exit(0);
@@ -72,10 +75,10 @@ public class BankManagementSystem {
 
 
                     System.out.print("Please provide us one your ID (eg: Citizenship, NID, Driving License): ");
-                    ID = scanner.nextLine();
+                    ID = scanner.nextLine().toUpperCase();
 
                     switch (ID) {
-                        case "Citizenship" -> {
+                        case "CITIZENSHIP" -> {
                             System.out.print("Enter your citizenship ID: ");
                             verification = scanner.nextLine();
                         }
@@ -83,7 +86,7 @@ public class BankManagementSystem {
                             System.out.print("Enter your NID number: ");
                             verification = scanner.nextLine();
                         }
-                        case "Driving License" -> {
+                        case "DRIVING LICENSE" -> {
                             System.out.print("Enter your Driving License number: ");
                             verification = scanner.nextLine();
                         }
@@ -132,21 +135,19 @@ public class BankManagementSystem {
                case 1 -> checkBalance(balance);
                case 2 -> {
                    balance -= withdraw(balance);
-                   System.out.println("Your new balance is " + balance );
-
                }
                case 3 -> {
                    balance += deposit();
                    System.out.println("Your new balance is " + balance);
                }
+               case 4 -> {
+                   System.out.println("Thanks for using our service!");
+                   System.exit(0);
+               }
+               default -> System.out.println("Invalid input!");
            }
 
-           System.out.println("Would you like to re-run the program (yes/no): ");
-           scanner.nextLine();
-           userAnswer = scanner.nextLine().toLowerCase();
-
-       }while(userAnswer.equals("yes"));
-
+       }while(userChoice != 4);
         scanner.close();
     }
 
@@ -166,28 +167,21 @@ public class BankManagementSystem {
             return 0;
         } else {
             System.out.println("You have withdrawn " + amount + " from your account.");
-
             return amount;
         }
-
-
     }
 
     static double withdraw(double balance) {
         double amount;
-        System.out.println("Enter the amount you want to withdraw: ");
+        System.out.print("Enter the amount you want to withdraw: ");
         amount = scanner.nextDouble();
-
         if(amount > balance){
             System.out.println("Insufficient balance!");
             return 0;
         }
         else{
-            System.out.println("You have successfully withdraw " + amount + " from your account.");
             return amount;
         }
-
     }
-
-
 }
+

@@ -1,8 +1,10 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class BankManagementSystem {
     static Scanner scanner = new Scanner(System.in);
-
+    static double[] transactions = new double[10];
+    static int transactionCount;
     public static void main(String[] args) {
 
         //a banking program using java (advanced console)
@@ -13,11 +15,12 @@ public class BankManagementSystem {
             3. Deposit, Withdraw and check Balance
             4. Transfer money
             5. Interest Calculation - simple interest calculator
-            6. Transaction history(array)
+            6. Transaction history
             7. Exit menu
          */
 
         // for experiment i will make a default pin for the isAccount true verification...
+        // I preferred demo account for the proper operation of the code
 
 
         double balance = 50000;
@@ -36,6 +39,7 @@ public class BankManagementSystem {
         boolean isAccount = false;
         boolean createAccount = false;
         String isExist;
+
 
         System.out.println("----Welcome to our Banking Management System----\n");
 
@@ -129,8 +133,8 @@ public class BankManagementSystem {
 
        do{
            System.out.println("\n 1. Check Balance \n 2. Withdraw Money \n 3. Deposit Money \n 4. Transfer Money " +
-                   " \n 5. Interest Calculation \n 6. Exit");
-           System.out.print("What activity would you like to do?(from 1 - 6): ");
+                   " \n 5. Interest Calculation \n 6. Show Transaction \n 7. Exit");
+           System.out.print("What activity would you like to do?(from 1 - 7): ");
            userChoice = scanner.nextInt();
 
            switch (userChoice) {
@@ -142,6 +146,7 @@ public class BankManagementSystem {
                case 3 -> {
                    balance += deposit();
                    System.out.println("Your new balance is " + balance);
+
                }
                case 4 -> {
                    balance -= TransferMoney(balance);
@@ -149,14 +154,17 @@ public class BankManagementSystem {
                }
                case 5 -> InterestCalculator();
 
-               case 6 -> {
+               case 6 ->{
+                showTransaction();
+               }
+               case 7 -> {
                    System.out.println("Thanks for using our service!");
                    System.exit(0);
                }
                default -> System.out.println("Invalid input!");
            }
 
-       }while(userChoice != 6);
+       }while(userChoice != 7);
         scanner.close();
     }
 
@@ -170,6 +178,7 @@ public class BankManagementSystem {
 
         System.out.print("Enter the amount you want to deposit: ");
         amount = scanner.nextDouble();
+        transactions[transactionCount++] = amount;
 
         if (amount < 0) {
             System.out.println("Amount can't be in negative.");
@@ -184,6 +193,7 @@ public class BankManagementSystem {
         double amount;
         System.out.print("Enter the amount you want to withdraw: ");
         amount = scanner.nextDouble();
+        transactions[transactionCount++] = -amount;
 
         if(amount > balance){
             System.out.println("Insufficient balance!");
@@ -198,6 +208,7 @@ public class BankManagementSystem {
         double amount;
         System.out.print("Enter the amount you want to transfer: ");
         amount = scanner.nextDouble();
+        transactions[transactionCount++] = -amount;
 
         if(amount < 0){
             System.out.println("Amount can't be in negative!");
@@ -266,6 +277,13 @@ public class BankManagementSystem {
             System.out.println("Invalid input");
         }
 
+    }
+
+    static void showTransaction(){
+        System.out.println("Your transactions were: ");
+       for(int i = 0;  i < transactionCount;i++){
+           System.out.println(transactions[i]);
+       }
     }
 }
 

@@ -12,7 +12,7 @@ public class BankManagementSystem {
             2. Login System
             3. Deposit, Withdraw and check Balance
             4. Transfer money
-            5. Interest Calculation
+            5. Interest Calculation - simple interest calculator
             6. Transaction history(array)
             7. Exit menu
          */
@@ -128,9 +128,11 @@ public class BankManagementSystem {
         }
 
        do{
-           System.out.println("\n 1. Check Balance \n 2. Withdraw Money \n 3. Deposit Money \n 4. Transfer Money \n 5. Exit");
-           System.out.print("What activity would you like to do?: ");
+           System.out.println("\n 1. Check Balance \n 2. Withdraw Money \n 3. Deposit Money \n 4. Transfer Money " +
+                   " \n 5. Interest Calculation \n 6. Exit");
+           System.out.print("What activity would you like to do?(from 1 - 6): ");
            userChoice = scanner.nextInt();
+
            switch (userChoice) {
                case 1 -> checkBalance(balance);
                case 2 -> {
@@ -145,14 +147,16 @@ public class BankManagementSystem {
                    balance -= TransferMoney(balance);
                    System.out.println("Your new balance is " +  balance);
                }
-               case 5 -> {
+               case 5 -> InterestCalculator();
+
+               case 6 -> {
                    System.out.println("Thanks for using our service!");
                    System.exit(0);
                }
                default -> System.out.println("Invalid input!");
            }
 
-       }while(userChoice != 5);
+       }while(userChoice != 6);
         scanner.close();
     }
 
@@ -207,6 +211,61 @@ public class BankManagementSystem {
             System.out.println("You have successfully transferred " + amount+ " from your account.");
             return amount;
         }
+    }
+
+    static void InterestCalculator(){
+
+        double principle;
+        String InterestType;
+        int time;
+        double LoanRate = 5.25;
+        double interestAmount;
+
+        System.out.print("What do you want to create(loan/saving a/c)?:  ");
+        scanner.nextLine();
+        InterestType = scanner.nextLine().toLowerCase();
+
+        if(InterestType.equals("loan")){
+            System.out.print("Enter your principal: ");
+            principle = scanner.nextDouble();
+
+            System.out.print("In how many years will you pay your loan?: ");
+            time = scanner.nextInt();
+
+            interestAmount = (principle * time * LoanRate) / 100;
+            System.out.println("Your yearly interest amount for the loan Rs." + principle + " is " + interestAmount +".");
+            System.out.println("The interest rate is " + LoanRate);
+        }
+        else if(InterestType.equals("saving")){
+
+            double userPrinciple;
+            double userInterestAmount;
+            double savingTime;
+
+            System.out.print("Would you like to create an account:  ");
+            String userAnswer = scanner.nextLine();
+
+            if(userAnswer.equals("yes")){
+
+                System.out.println("Enter the amount you want to deposit: ");
+                userPrinciple = scanner.nextDouble();
+
+                System.out.println("You have successfully created a saving account in our bank.");
+                System.out.println("Your principle is " + userPrinciple + ".");
+
+                System.out.print("Enter the # of years you want to know the interest of: ");
+                savingTime = scanner.nextDouble();
+
+                userInterestAmount = (userPrinciple * 3.50 * savingTime) / 100;
+
+                System.out.println("You will get yearly Rs." + userInterestAmount);
+
+            }
+        }
+        else{
+            System.out.println("Invalid input");
+        }
+
     }
 }
 

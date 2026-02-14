@@ -63,6 +63,10 @@ public class BankManagementSystem {
                 System.out.print("Would you like to create a new account?(yes/no): ");
                 userAnswer = scanner.nextLine().toLowerCase();
 
+                if(userAnswer.equals("no")){
+                    System.out.println("Thanks for using our service!");
+                    System.exit(0);
+                }
                 if (userAnswer.equals("yes")) {
                     System.out.println("----You can fill the following to create your account----");
                     System.out.print("Enter your first name: ");
@@ -178,13 +182,14 @@ public class BankManagementSystem {
 
         System.out.print("Enter the amount you want to deposit: ");
         amount = scanner.nextDouble();
-        transactions[transactionCount++] = amount;
+        transactions[0] = amount;
 
         if (amount < 0) {
             System.out.println("Amount can't be in negative.");
             return 0;
         } else {
             System.out.println("You have withdrawn " + amount + " from your account.");
+            transactionCount++;
             return amount;
         }
     }
@@ -193,13 +198,14 @@ public class BankManagementSystem {
         double amount;
         System.out.print("Enter the amount you want to withdraw: ");
         amount = scanner.nextDouble();
-        transactions[transactionCount++] = -amount;
+        transactions[0] = -amount;
 
         if(amount > balance){
             System.out.println("Insufficient balance!");
             return 0;
         }
         else{
+            transactionCount++;
             return amount;
         }
     }
@@ -208,7 +214,7 @@ public class BankManagementSystem {
         double amount;
         System.out.print("Enter the amount you want to transfer: ");
         amount = scanner.nextDouble();
-        transactions[transactionCount++] = -amount;
+        transactions[0] = -amount;
 
         if(amount < 0){
             System.out.println("Amount can't be in negative!");
@@ -219,6 +225,7 @@ public class BankManagementSystem {
             return 0;
         }
         else{
+            transactionCount++;
             System.out.println("You have successfully transferred " + amount+ " from your account.");
             return amount;
         }

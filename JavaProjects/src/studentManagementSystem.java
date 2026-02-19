@@ -35,7 +35,7 @@ public class studentManagementSystem {
 
         System.out.println("----Welcome to the Student Management System----");
         while(userRun){
-            System.out.println("\n 1.Store Marks \n 2. Update Marks \n 3. Average marks \n 4. Calculate grade \n 5. Show Marks");
+            System.out.println("\n 1. Store Marks \n 2. Update Marks \n 3. Average marks \n 4. Calculate grade \n 5. Show Marks");
 
             System.out.print("What would you like to do?(1-5): ");
             userAnswer = scanner.nextInt();
@@ -72,8 +72,8 @@ public class studentManagementSystem {
         System.out.println("Enter the marks of the student: ");
 
         mark = scanner.nextDouble();
-        StudentMarks[0] = mark;
-        StudentMarksCount++;
+        StudentMarks[ StudentMarksCount++] = mark;
+
         return mark;
 
     }

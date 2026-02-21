@@ -3,8 +3,9 @@ import java.util.Scanner;
 
 public class studentManagementSystem {
     static Scanner scanner = new Scanner(System.in);
-    static double[]StudentMarks = new double[10];
-    static int StudentMarksCount = 0;
+    static double[][]studentMarks = new double[10][5];
+    static int studentMarksCountRow = 0;
+    static int studentMarksCountColumn = 0;
     static int[] studentRoll = new int[10];
     static int studentRollCount = 0;
     static String[] studentName= new String[10];
@@ -16,7 +17,7 @@ public class studentManagementSystem {
         /*
         Features:
         1.Add students (name, roll, marks)
-        2.Store marks in 2D array
+        2.Store marks in a 2d array
         3.Calculate average, grade
         4.Search student by roll
         5.Update marks
@@ -31,6 +32,7 @@ public class studentManagementSystem {
         double marks = 0;
         int userAnswer;
         boolean userRun = true;
+        String[] subjects = {"English", "Nepali", "Math", "Digital Logics", "CFA"};
 
 
         System.out.println("----Welcome to the Student Management System----");
@@ -44,6 +46,9 @@ public class studentManagementSystem {
                 case 1 ->{
                     storeMarks(marks);
                 }
+                case 3 ->{
+                    average();
+                }
                 case 5 ->showMarks();
 
                 default -> System.out.println("Invalid input");
@@ -54,7 +59,7 @@ public class studentManagementSystem {
     }
 
 
-    static double storeMarks(double mark){
+    static void storeMarks(double mark) {
 
         int roll;
         System.out.println("Enter the roll no of the student: ");
@@ -62,24 +67,60 @@ public class studentManagementSystem {
         studentRoll[studentRollCount++] = roll;
 
 
-
         System.out.print("Enter the name of the student: ");
         scanner.nextLine();
         String name = scanner.nextLine();
-        studentName[studentNameCount++]=  name;
+        studentName[studentNameCount++] = name;
 
+        int i;
+        for (i = 0; i < 5; i++) {
+            System.out.println("Enter the marks of the student: ");
+            System.out.println();
+            mark = scanner.nextDouble();
+            studentMarks[studentMarksCountRow][i] = mark;
+        }
 
-        System.out.println("Enter the marks of the student: ");
-
-        mark = scanner.nextDouble();
-        StudentMarks[ StudentMarksCount++] = mark;
-
-        return mark;
-
+        studentMarksCountRow++;
     }
+
+    static double average(){
+
+        boolean isFound = true;
+        double average = 0;
+        double sum = 0;
+        String name;
+        System.out.println("Enter the name of the student: ");
+        scanner.nextLine();
+        name = scanner.nextLine();
+
+        for(int i = 0; i < studentNameCount; i++){
+            if(studentName[i].equals(name)){
+                System.out.println("Student ID has found.");
+                for(double[] mark : studentMarks){
+                   for(double marks : mark){
+                       sum = sum + marks;
+                   }
+                }
+            }
+            else{
+                System.out.println("Student ID isn't registered.");
+                isFound = false;
+            }
+
+        }
+        if(isFound){
+            average = sum / 5;
+            System.out.println("The average is " + average);
+            return average;
+        }
+        else{
+            return 0;
+        }
+    }
+
     static void showMarks(){
         for(int i = 0; i < studentRollCount; i++){
-            System.out.print(studentRoll[i] + " " +  studentName[i] + " "  + StudentMarks[i] + " \n");
+            System.out.print(studentRoll[i] + " " +  studentName[i] + " "  + Arrays.toString(studentMarks[i]) + " \n");
 
         }
     }

@@ -21,8 +21,7 @@ public class studentManagementSystem {
         3.Calculate average
         4.Search through an array
         5.Update marks
-        6.Rank students
-        7.Menu-driven system
+        6.Menu-driven system
          */
 
 
@@ -32,15 +31,12 @@ public class studentManagementSystem {
         double marks = 0;
         int userAnswer;
         boolean userRun = true;
-        String[] subjects = {"English", "Nepali", "Math", "Digital Logics", "CFA"};
-
 
         System.out.println("----Welcome to the Student Management System----");
-        while(userRun){
-            System.out.println("\n 1. Store Marks \n 2. Update Marks \n 3. Average marks \n 4. Calculate grade \n 5. Show Marks"
-             + "\n 6. Exit");
+        do{
+            System.out.println("\n 1. Store Marks \n 2. Update Marks \n 3. Average marks \n 4. Show Marks \n 5. Exit");
 
-            System.out.print("What would you like to do?(1-5): ");
+            System.out.print("What would you like to do?(1-6): ");
             userAnswer = scanner.nextInt();
 
             switch(userAnswer){
@@ -57,20 +53,27 @@ public class studentManagementSystem {
                 }
                 case 5 ->showMarks();
 
-                case 6 -> System.exit(0);
+                case 6 -> {
+                    System.out.println("Thank you for using our service.");
+                    System.exit(0);
+                }
 
                 default -> System.out.println("Invalid input");
             }
 
-        }
+        }while(userAnswer != 6);
         scanner.close();
     }
 
 
     static void storeMarks(double mark) {
 
+        int subject;
+        System.out.println("Enter the number of subject: ");
+        subject = scanner.nextInt();
+
         int roll;
-        System.out.println("Enter the roll no of the student: ");
+        System.out.print("Enter the roll no of the student: ");
         roll = scanner.nextInt();
         studentRoll[studentRollCount++] = roll;
 
@@ -81,7 +84,7 @@ public class studentManagementSystem {
         studentName[studentNameCount++] = name;
 
         int i;
-        for (i = 0; i < 5; i++) {
+        for (i = 0; i < subject; i++) {
             System.out.println("Enter the marks of the student: ");
             System.out.println();
             mark = scanner.nextDouble();

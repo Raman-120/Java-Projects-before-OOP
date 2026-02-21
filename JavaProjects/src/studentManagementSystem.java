@@ -18,8 +18,8 @@ public class studentManagementSystem {
         Features:
         1.Add students (name, roll, marks)
         2.Store marks in a 2d array
-        3.Calculate average, grade
-        4.Search student by roll
+        3.Calculate average
+        4.Search through an array
         5.Update marks
         6.Rank students
         7.Menu-driven system
@@ -37,7 +37,8 @@ public class studentManagementSystem {
 
         System.out.println("----Welcome to the Student Management System----");
         while(userRun){
-            System.out.println("\n 1. Store Marks \n 2. Update Marks \n 3. Average marks \n 4. Calculate grade \n 5. Show Marks");
+            System.out.println("\n 1. Store Marks \n 2. Update Marks \n 3. Average marks \n 4. Calculate grade \n 5. Show Marks"
+             + "\n 6. Exit");
 
             System.out.print("What would you like to do?(1-5): ");
             userAnswer = scanner.nextInt();
@@ -49,7 +50,12 @@ public class studentManagementSystem {
                 case 3 ->{
                     average();
                 }
+                case 4 ->{
+                    searchStudent();
+                }
                 case 5 ->showMarks();
+
+                case 6 -> System.exit(0);
 
                 default -> System.out.println("Invalid input");
             }
@@ -83,38 +89,49 @@ public class studentManagementSystem {
         studentMarksCountRow++;
     }
 
-    static double average(){
+    static void average(){
 
-        boolean isFound = true;
+        boolean isFound = false;
         double average = 0;
         double sum = 0;
         String name;
-        System.out.println("Enter the name of the student: ");
+
+        System.out.print("Enter the name of the student: ");
         scanner.nextLine();
         name = scanner.nextLine();
 
         for(int i = 0; i < studentNameCount; i++){
             if(studentName[i].equals(name)){
                 System.out.println("Student ID has found.");
-                for(double[] mark : studentMarks){
+                isFound = true;
+                double[] mark = studentMarks[i];
                    for(double marks : mark){
                        sum = sum + marks;
                    }
-                }
-            }
-            else{
-                System.out.println("Student ID isn't registered.");
-                isFound = false;
+
+                average = sum / mark.length;
+                System.out.println("The average is " + average);
             }
 
+
         }
-        if(isFound){
-            average = sum / 5;
-            System.out.println("The average is " + average);
-            return average;
+        if(!isFound){
+            System.out.println("Student ID isn't registered.");
         }
-        else{
-            return 0;
+
+
+    }
+
+    static void searchStudent(){
+        int i = 0;
+        String name;
+        System.out.print("Enter the name of the student: ");
+        name = scanner.nextLine();
+
+        for(i = 0;  i < studentNameCount; i++){
+            if(studentName[i].equals(name)){
+                System.out.println("Name found at index " + i);
+            }
         }
     }
 

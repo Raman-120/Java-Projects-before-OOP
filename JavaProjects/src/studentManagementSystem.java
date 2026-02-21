@@ -47,6 +47,8 @@ public class studentManagementSystem {
                 case 1 ->{
                     storeMarks(marks);
                 }
+                case 2 -> updateMarks();
+
                 case 3 ->{
                     average();
                 }
@@ -133,6 +135,37 @@ public class studentManagementSystem {
                 System.out.println("Name found at index " + i);
             }
         }
+    }
+
+    static void updateMarks(){
+
+        int j = 0;
+        boolean isFound = false;
+        double marks;
+        String name;
+        System.out.print("Enter the name of the student: ");
+        scanner.nextLine();
+        name = scanner.nextLine();
+
+        for(int i = 0; i < studentNameCount; i++ ){
+            if(studentName[i].equals(name)){
+                isFound = true;
+                System.out.println("Student ID has found.");
+                for(j = 0;  j < studentMarks[i].length; j++){
+                    System.out.println("Enter the updated marks here: ");
+                    marks = scanner.nextDouble();
+                    studentMarks[i][j] = marks;
+
+                }
+                System.out.println("Marks has been successfully updated.");
+                break;
+            }
+
+        }
+        if(!isFound){
+            System.out.println("Students hasn't found!");
+        }
+
     }
 
     static void showMarks(){
